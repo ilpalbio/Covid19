@@ -1,7 +1,17 @@
-# COVID 19
 
-Questo è un gioco sviluppato quest'estate da Alessandro Palbiani, Davide Buglione e Riccardo Malavasi di 2^G: il concetto che sta alla base è molto semplice, infatti basta muoversi verticalmente per sparare e uccidere gli zombie e raggiungere un determinato tempo per vincere, troverete le istruzioni dettagliate nella home page.
+# Covid 19
 
-per far partire il programma fare le seguenti cose:
-- installare la libreria pygame 'pip install pygame'
-- eseguire il programma con il comando 'python Covid19.py'
+- Partecipanti: Alessandro Palbiani, Riccardo Malavasi, Davide Buglione appartenenti alla 2G
+
+- Il progetto è un videogioco programmato in python durante l'estate. L'obbiettivo è quello di uccidere tutti gli zombi (che rappresentano il virus )
+se si riesce a resistere per un minuto senza fare arrivare il virus alla fine della strada vinci, altrimenti perdi.
+
+- Per avviare l'applicativo bisogna:
+Andare sul terminale git bash se si ha Windows oppure utilizzare il terminale normale e digitare
+```
+pip install pygame --user
+```
+ed infine per far partire il gioco scrivere
+```
+python Covid19
+```
