@@ -238,9 +238,15 @@ bullet_list = []
 
 
 class Nemico(object):
-    zombie = (py.image.load('1.png'),py.image.load('2.png'),py.image.load('3.png'),py.image.load('4.png'),py.image.load('5.png'),py.image.load('6.png'),py.image.load('7.png'),py.image.load('8.png'),py.image.load('9.png'),py.image.load('10.png'),py.image.load('11.png'),py.image.load('12.png'),py.image.load('13.png'),py.image.load('14.png'),py.image.load('15.png'),py.image.load('16.png'),py.image.load('17.png'),py.image.load('18.png'),py.image.load('19.png'),py.image.load('20.png') \
-        ,py.image.load('21.png'),py.image.load('22.png'),py.image.load('23.png'),py.image.load('24.png'),py.image.load('25.png'),py.image.load('26.png'),py.image.load('27.png'),py.image.load('28.png'),py.image.load('29.png'),py.image.load('30.png'),py.image.load('31.png'),py.image.load('32.png'),py.image.load('33.png'),py.image.load('34.png'),py.image.load('35.png'),py.image.load('36.png'),py.image.load('24.png'),py.image.load('25.png'),py.image.load('26.png'),py.image.load('27.png')\
-        ,py.image.load('12.png'),py.image.load('13.png'),py.image.load('14.png'),py.image.load('15.png'),py.image.load('16.png'),py.image.load('17.png'),py.image.load('1.png'),py.image.load('2.png'),py.image.load('3.png'),py.image.load('4.png'),py.image.load('5.png'))
+    zombie = (py.image.load('1.png'),py.image.load('2.png'),py.image.load('3.png'),py.image.load('4.png'),py.image.load('5.png'),py.image.load('6.png'),py.image.load('7.png') \
+        ,py.image.load('8.png'),py.image.load('9.png'),py.image.load('10.png'),py.image.load('11.png'),py.image.load('12.png'),py.image.load('13.png'),py.image.load('14.png') \
+        ,py.image.load('15.png'),py.image.load('16.png'),py.image.load('17.png'),py.image.load('18.png'),py.image.load('19.png'),py.image.load('20.png') \
+        ,py.image.load('21.png'),py.image.load('22.png'),py.image.load('23.png'),py.image.load('24.png'),py.image.load('25.png'),py.image.load('26.png') \
+        ,py.image.load('27.png'),py.image.load('28.png'),py.image.load('29.png'),py.image.load('30.png'),py.image.load('31.png'),py.image.load('32.png') \
+        ,py.image.load('33.png'),py.image.load('34.png'),py.image.load('35.png'),py.image.load('36.png'),py.image.load('24.png'),py.image.load('25.png') \
+        ,py.image.load('26.png'),py.image.load('27.png')\
+        ,py.image.load('12.png'),py.image.load('13.png'),py.image.load('14.png'),py.image.load('15.png'),py.image.load('16.png'),py.image.load('17.png'),py.image.load('1.png') \
+        ,py.image.load('2.png'),py.image.load('3.png'),py.image.load('4.png'),py.image.load('5.png'))
     def __init__(self,x,w,h,color,vita):
         self.x = x
         self.y = y_list.pop(y_list.index(choice(y_list)))
