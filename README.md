@@ -8,7 +8,7 @@ se si riesce a resistere per un minuto senza fare arrivare il virus alla fine de
 
 - Per avviare l'applicativo bisogna:
 
-Andare sul terminale git bash se si ha Windows oppure utilizzare il terminale normale e digitare
+Andare sul terminale git bash se si ha Windows oppure utilizzare il terminale normale e digitare per installare la libreria pygame
 ```
 pip install pygame --user
 ```
