@@ -7,6 +7,7 @@
 se si riesce a resistere per un minuto senza fare arrivare il virus alla fine della strada vinci, altrimenti perdi.
 
 - Per avviare l'applicativo bisogna:
+
 Andare sul terminale git bash se si ha Windows oppure utilizzare il terminale normale e digitare
 ```
 pip install pygame --user
