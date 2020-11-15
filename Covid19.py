@@ -3,7 +3,8 @@ from random import choice,randint
 import os
 
 py.init()
-cartella = 'D:/Users/xxx/Desktop/programmazione/gioco_trash/foto'
+dirname = os.path.dirname(__file__)
+cartella = os.path.join(dirname, 'foto')
 os.chdir(cartella)
 
 FPS = 60
