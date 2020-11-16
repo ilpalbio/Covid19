@@ -42,12 +42,7 @@ ORANGE = (255, 112, 45)
 L_GREY = (243, 244, 238)
 WHITE = (255,255,255)
 
-# liste
-scegliPersonaggio_list = []
-
 # variabili
-x_istruzioni = 429
-y_istruzioni = 117
 mostraIstruzioni = True
 iniziaGioco = True
 togliIstruzioni = False
@@ -57,6 +52,8 @@ personaggioDestra = False
 personaggioSinistra = True
 mostraScore = True
 y_personaggi = 10
+pFemmina = True
+pMaschio = False
 
 # variabili dei punteggi
 nPartite = 0
@@ -69,21 +66,6 @@ mediaPartite = 0
 # posizione bottoni
 posIstruzioni = (1506,20)
 posStart = (700,418)
-# classi
-# personaggi
-class SceltaPersonaggio:
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
-        self.w = 95
-        self.h = 130
-        self.color = BLUE
-    def draw(self,screen):
-        py.draw.rect(screen,self.color,(self.x,self.y,self.w,self.h))
-
-n_personaggi = 1
-n_personaggi2 = 1
-
 # funzioni
 def draw_istruzioni():
     screen.blit(tasto_uscita,(100,100))
@@ -96,6 +78,11 @@ def draw_schermata():
     py.draw.rect(screen,DARK_RED,(1400,20,64,64))
 def draw_personaggi():
     py.draw.rect(screen,CRAZY_BLUE,(1300,0,300,900))
+    py.draw.rect(screen, BLUE, (1310, 15, 95, 130))
+    py.draw.rect(screen, BLUE, (1445, 15, 95, 130))
+    # personaggi
+    screen.blit(p1,(1315,15))
+    screen.blit(p2,(1460,15))
     # tasto x uscire
     py.draw.circle(screen,RED,(1575,25),15)
 
@@ -107,24 +94,6 @@ while home_page:
     clock.tick(FPS)
 
     posizione_mouse = py.mouse.get_pos()
-
-    if personaggioSinistra == True:
-        x_personaggi = 1310
-        personaggioSinistra = False
-        personaggioDestra = True
-
-    elif personaggioDestra == True:
-        x_personaggi = 1445
-        personaggioDestra = False
-        personaggioSinistra = True
-
-    for n in range(n_personaggi):
-        scegliPersonaggio_list.append(SceltaPersonaggio(x_personaggi,y_personaggi))
-        n_personaggi -= 1
-
-    for n in range(n_personaggi2):
-        scegliPersonaggio_list.append(SceltaPersonaggio(x_personaggi,y_personaggi))
-        n_personaggi -= 1
 
     for event in py.event.get():
         if event.type == py.QUIT:
@@ -155,15 +124,23 @@ while home_page:
             if posizione_mouse[0] >= 1400 and posizione_mouse[0] <= 1400 + 64:
                 if posizione_mouse[1] >= 20 and posizione_mouse[1] <= 20+ 64:
                     draw_personaggi()
-                    for personaggi in scegliPersonaggio_list:
-                        personaggi.draw(screen)
-                    screen.blit(p1,(1315,15))
-                    screen.blit(p2,(1460,15))
                     mostraIstruzioni = False
                     iniziaGioco = False
                     togliIstruzioni = False
                     togliPersonaggi = True
                     mostraScore = False
+
+        if scegliPersonaggio == True:
+            # scelta personaggio femmina
+            if posizione_mouse[0] >= 1315 and posizione_mouse[0] <= 1315 + 95:
+                if posizione_mouse[1] >= 15 and posizione_mouse[1] <= 15 + 130:
+                    pFemmina = True
+                    pMaschio = False
+            # scelta del personaggio maschio
+            if posizione_mouse[0] >= 1460 and posizione_mouse[0] <= 1460 + 95:
+                if posizione_mouse[1] >= 15 and posizione_mouse[1] <= 15 + 130:
+                    pMaschio = True
+                    pFemmina = False
 
         # togli personaggio
         if togliPersonaggi == True:
@@ -209,7 +186,8 @@ haiVinto = False
 haiPerso = False
 
 class Personaggio:
-    personaggio = py.image.load('infermiera.png')
+    personaggioFemmina = py.image.load('infermiera.png')
+    personaggioMaschio = py.image.load('infermiere.png')
     def __init__(self,y,w,h,color):
         self.x = 0
         self.y = y
@@ -217,7 +195,11 @@ class Personaggio:
         self.h = h
         self.color = color
     def draw(self,screen):
-        screen.blit(self.personaggio,(self.x,self.y))
+        if pFemmina == True:
+            screen.blit(self.personaggioFemmina,(self.x,self.y))
+        if pMaschio == True:
+            screen.blit(self.personaggioMaschio,(self.x,self.y))
+
 
 y_personaggio = 166
 
@@ -235,7 +217,6 @@ class Proiettile(object):
         screen.blit(self.proiettile,(self.x,self.y))
 
 bullet_list = []
-
 
 class Nemico(object):
     zombie = (py.image.load('1.png'),py.image.load('2.png'),py.image.load('3.png'),py.image.load('4.png'),py.image.load('5.png'),py.image.load('6.png'),py.image.load('7.png') \
