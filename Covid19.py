@@ -1,6 +1,7 @@
 import pygame as py
 from random import choice,randint
 import os
+import variabiliSchermo as vs
 
 py.init()
 dirname = os.path.dirname(__file__)
@@ -9,7 +10,7 @@ os.chdir(cartella)
 
 FPS = 60
 clock = py.time.Clock()
-py.display.set_caption('Game')
+py.display.set_caption('Covid19')
 
 x = 1600
 y = 900
@@ -42,7 +43,7 @@ ORANGE = (255, 112, 45)
 L_GREY = (243, 244, 238)
 WHITE = (255,255,255)
 
-# variabili
+# variabili boleane
 mostraIstruzioni = True
 iniziaGioco = True
 togliIstruzioni = False
@@ -51,9 +52,13 @@ togliPersonaggi = False
 personaggioDestra = False
 personaggioSinistra = True
 mostraScore = True
-y_personaggi = 10
 pFemmina = True
 pMaschio = False
+grandezzaSchermo = True
+esciGrandezzeSchermo = False
+
+# font
+font = py.font.SysFont('Alien Encounters', 30)
 
 # variabili dei punteggi
 nPartite = 0
@@ -76,6 +81,7 @@ def draw_schermata():
     screen.blit(start, (700,418))
     screen.blit(istruzioni, (1506,20))
     py.draw.rect(screen,DARK_RED,(1400,20,64,64))
+    py.draw.rect(screen,DARK_RED,(20,20,64,64))
 def draw_personaggi():
     py.draw.rect(screen,CRAZY_BLUE,(1300,0,300,900))
     py.draw.rect(screen, BLUE, (1310, 15, 95, 130))
@@ -85,13 +91,48 @@ def draw_personaggi():
     screen.blit(p2,(1460,15))
     # tasto x uscire
     py.draw.circle(screen,RED,(1575,25),15)
+def draw_grandezzeSchermo():
+    py.draw.rect(screen,CRAZY_BLUE,(10,200,670,680))
+    scrittaGrandezzaSchermo= font.render(str('Seleziona le dimensioni dello schermo'),True,(0,0,0))
+    screen.blit(scrittaGrandezzaSchermo,(15,215))
+    # rettangli blu
+    py.draw.rect(screen,BLUE,(15,300,640,150))
+    py.draw.rect(screen,BLUE,(15,500,640,150))
+    # scritte
+    scrittaSchermo1 = font.render(str('1600x900'),True,(0,0,0))
+    screen.blit(scrittaSchermo1,(270,360))
+    scrittaSchermo2 = font.render(str('1000x500'),True,(0,0,0))
+    screen.blit(scrittaSchermo2,(270,560))
+    # tasto di uscita
+    py.draw.rect(screen,RED,(200,780,300,70))
+    scrittaUscita = font.render(str('ESCI'),True,(0,0,0))
+    screen.blit(scrittaUscita,(315,800))
+
+'''
+def ridimensionaSchermo_home():
+    x = 1000
+    y = 500
+    screen = py.display.set_mode((x,y))
+    Rscritta = py.transform.scale(scritta, (vs.vRscritta[0],vs.vRscritta[1]))
+    Rstart = py.transform.scale(start, (vs.vRstart[0],vs.vRstart[1]))
+    Rfoto_home = py.transform.scale(foto_home, (vs.vRfoto_home[0],vs.vRfoto_home[1]))
+    Ristruzioni = py.transform.scale(istruzioni, (vs.vRistruzioni[0],vs.vRistruzioni[1]))
+    # apparizione delle immagini sullo schermo
+    screen.blit(Rfoto_home,(vs.vRfoto_home[2],vs.vRfoto_home[3]))
+    screen.blit(Rscritta,(vs.vRscritta[2],vs.vRscritta[3]))
+    screen.blit(Rstart,(vs.vRstart[2],vs.vRstart[3]))
+    screen.blit(Ristruzioni,(vs.vRistruzioni[2],vs.vRistruzioni[3]))
+def ridimensionaIstruzioni(): 
+    Ristruzioni_foto = py.transform.scale(istruzioni_foto, (vs.vRistruzioni_foto[0],vs.vRistruzioni_foto[1]))
+    Rtasto_uscita  = py.transform.scale(tasto_uscita, (vs.vRtasto_uscita[0],vs.vRtasto_uscita[1]))
+'''
 
 draw_schermata()
 
 home_page = True
 while home_page:
 
-    clock.tick(FPS)
+    clock.tick(20)
 
     posizione_mouse = py.mouse.get_pos()
 
@@ -107,6 +148,7 @@ while home_page:
                     iniziaGioco = True
                     scegliPersonaggio = True
                     mostraScore = True
+                    grandezzaSchermo = True
                     draw_schermata()
 
         # mostra istruzioni
@@ -117,6 +159,7 @@ while home_page:
                     scegliPersonaggio = False
                     togliIstruzioni = True
                     mostraScore = False
+                    grandezzaSchermo = False
                     draw_istruzioni()
 
         # scegli personaggio
@@ -129,8 +172,7 @@ while home_page:
                     togliIstruzioni = False
                     togliPersonaggi = True
                     mostraScore = False
-
-        if scegliPersonaggio == True:
+                    grandezzaSchermo = False
             # scelta personaggio femmina
             if posizione_mouse[0] >= 1315 and posizione_mouse[0] <= 1315 + 95:
                 if posizione_mouse[1] >= 15 and posizione_mouse[1] <= 15 + 130:
@@ -152,7 +194,42 @@ while home_page:
                     scegliPersonaggio = True
                     mostraIstruzioni = True
                     mostraScore = True
+                    grandezzaSchermo = True
                     draw_schermata()
+        
+        # scelta delle grandezze dello schermo
+        if grandezzaSchermo == True:
+            if posizione_mouse[0] >= 20 and posizione_mouse[0] <= 20 + 64:
+                if posizione_mouse[1] >= 20 and posizione_mouse[1] <= 20 + 64:
+                    esciGrandezzeSchermo = True
+                    mostraIstruzioni = False
+                    iniziaGioco = False
+                    togliIstruzioni = False
+                    togliPersonaggi = True
+                    mostraScore = False
+                    scegliPersonaggio = False
+                    draw_grandezzeSchermo()
+            # scelta grandezza 1600x900
+            if posizione_mouse[0] >= 15 and posizione_mouse[0] <= 15 + 640:
+                if posizione_mouse[1] >= 300 and posizione_mouse[1] <= 300 + 150:
+                    print('grandezza scelta 1600x900')
+            # scelta grandezza 1000x500
+            if posizione_mouse[0] >= 15 and posizione_mouse[0] <= 15 + 640:
+                if posizione_mouse[1] >= 500 and posizione_mouse[1] <= 500 + 150:
+                    print('grandezza scelta 1000x500')
+
+        if esciGrandezzeSchermo == True:
+            if posizione_mouse[0] >= 200 and posizione_mouse[0] <= 200 + 300:
+                if posizione_mouse[1] >= 780 and posizione_mouse[1] <= 780 + 70:
+                    iniziaGioco = True
+                    scegliPersonaggio = True
+                    mostraScore = True
+                    grandezzaSchermo = True
+                    mostraIstruzioni = True
+                    esciGrandezzeSchermo = False
+                    draw_schermata()
+
+            
               
         # inizio gioco
         if iniziaGioco == True:
@@ -481,7 +558,7 @@ font_fine = py.font.SysFont('Chiller', 300)
 fine = True
 screen.fill(BLACK)
 while fine:
-    clock.tick(FPS)
+    clock.tick(20)
 
     for event in py.event.get():
         if event.type == py.QUIT:
